@@ -16,9 +16,9 @@ pipeline {
             }
         }
         
-        stage('build') {
+        stage('build docker') {
             steps {
-                sh 'mvn package' 
+                sh 'docker build -t hanv22011998/mavenapp .' 
             }
         }
     }
