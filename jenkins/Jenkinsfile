@@ -19,7 +19,7 @@ pipeline {
         
         stage('build docker') {
             steps {
-                sh 'docker build -t hanv22011998/mavenapp .' 
+                sh 'docker build -t ha/app .'
             }
         }
     }
