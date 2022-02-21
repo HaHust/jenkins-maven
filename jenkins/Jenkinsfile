@@ -7,6 +7,7 @@ pipeline {
     environment {
         registry = "hanv22011998/jenkins-demo"
         registryCredential = 'hanv22011998'
+        registryPassword = 'Haqh1234'
         dockerImage = ''
     }
 
@@ -34,8 +35,13 @@ pipeline {
         stage('Push docker') {
             steps {
                 script {
-                    sh 'echo $registry'
-//                     sh 'docker login -u $registryCredential -p $registryCredential'
+                    sh 'docker login -u $registryCredential -p $registryPassword'
+                    sh 'docker push $registry'
+                }
+            }
+        }
+    }
+}
 //                     sh 'docker push $registry'
                 }
             }
