@@ -20,27 +20,38 @@ pipeline {
         
         stage('build') {
             steps {
+
                 sh 'mvn clean package'
             }
         }
-        
-        stage('build docker') {
-            steps {
-                script {
-                    sh 'docker build -t $registry .'
-                }
-            }
-        }
 
-        stage('Push docker') {
+        stage('Sonar') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'pass', usernameVariable: 'username')]) {
-                        sh "docker login -u ${username} -p ${pass}"
+                    withCredentials([string(credentialsId: 'sonar', variable: 'token')]) {
+                        sh 'mvn sonar:sonar -Dsonar.host.url=http://192.168.56.1:9000 -Dsonar.login=af11c4599b188d6e95de4210e8bd47a73709e415'
                     }
-                    sh 'docker push $registry'
                 }
             }
         }
+        
+//         stage('build docker') {
+//             steps {
+//                 script {
+//                     sh 'docker build -t $registry .'
+//                 }
+//             }
+//         }
+//
+//         stage('Push docker') {
+//             steps {
+//                 script {
+//                     withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'pass', usernameVariable: 'username')]) {
+//                         sh "docker login -u ${username} -p ${pass}"
+//                     }
+//                     sh 'docker push $registry'
+//                 }
+//             }
+//         }
     }
 }
