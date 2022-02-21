@@ -5,7 +5,9 @@ pipeline {
     }
 
     environment {
-        PATH = "/usr/local/bin:$PATH"
+        registry = "hanv22011998/jenkins-demo"
+        registryCredential = 'hanv22011998'
+        dockerImage = ''
     }
 
     stages {
@@ -24,7 +26,17 @@ pipeline {
         stage('build docker') {
             steps {
                 script {
-                    sh 'docker build -t ha/app .'
+                    sh 'docker build -t $registry .'
+                }
+            }
+        }
+
+        stage('Push docker') {
+            steps {
+                script {
+                    sh 'echo $registry'
+//                     sh 'docker login -u $registryCredential -p $registryCredential'
+//                     sh 'docker push $registry'
                 }
             }
         }
