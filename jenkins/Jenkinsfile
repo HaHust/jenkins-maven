@@ -22,11 +22,6 @@ pipeline {
         }
         
         stage('build docker') {
-        agent {
-             node {
-                label 'docker'
-             }
-        }
             steps {
                 script {
                     sh 'docker build -t ha/app .'
