@@ -23,9 +23,9 @@ pipeline {
         
         stage('build docker') {
         agent {
-             docker {
-                image 'docker:18.09.1-ce-rc1'
-            }
+             node {
+                label 'docker'
+             }
         }
             steps {
                 script {
